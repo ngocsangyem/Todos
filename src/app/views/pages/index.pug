@@ -1,0 +1,23 @@
+extends ../layouts/layout
+
+block var
+	- title = 'Todos'
+	- bodyClass = 'todos-page'
+
+
+block main
+	.td
+		h1.td__title Todos
+		.td__header
+			.td__header-input
+				input#todoInput(type="text", name="" placeholder="What needs to be done?")
+			span.td__header-count 7
+			button#td__header-add.td__header-action
+				i.mdi.mdi-plus
+		.td__body
+			ul.td__body-tasks
+				//- li.td__body-task
+				//- 	label(for="")
+				//- 		input(type="checkbox", name="")
+				//- 		span Task 1
+

@@ -1,0 +1,9 @@
+{
+	"styles": [
+		"resource/css/reset.css",
+		"resource/css/fonts.css"
+	],
+	"scripts": [
+		"bower_components/swiper/dist/js/swiper.min.js"
+	]
+}

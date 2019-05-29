@@ -1,0 +1,30 @@
+{
+  "name": "ngocsangyem",
+  "description": "front-end gulp pug sass javscript html css",
+  "main": "index.js",
+  "authors": [
+    "ngocsangyem"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "front-end",
+    "gulp",
+    "pug",
+    "sass",
+    "javascript",
+    "html",
+    "css"
+  ],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "swiper": "^4.5.0",
+    "k-sass-core": "^6.0.4"
+  }
+}
