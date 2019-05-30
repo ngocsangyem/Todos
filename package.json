@@ -37,7 +37,9 @@
 		"babel-eslint": "^10.0.1",
 		"babel-loader": "^8.0.5",
 		"babel-plugin-add-module-exports": "^1.0.2",
+		"babelify": "^10.0.0",
 		"browser-sync": "^2.26.5",
+		"browserify": "^16.2.3",
 		"cpy": "^7.2.0",
 		"cross-env": "^5.2.0",
 		"css-declaration-sorter": "^4.0.1",
@@ -93,11 +95,18 @@
 		"stylelint-order": "^3.0.0",
 		"stylelint-selector-bem-pattern": "^2.1.0",
 		"through2": "^3.0.1",
+		"ts-loader": "^6.0.1",
+		"tsify": "^4.0.1",
 		"typescript": "^3.4.5",
 		"uglifyjs-webpack-plugin": "^2.1.2",
 		"vinyl-buffer": "^1.0.1",
+		"vinyl-source-stream": "^2.0.0",
+		"watchify": "^3.11.1",
 		"webpack": "^4.31.0",
 		"webpack-stream": "^5.2.1",
 		"yargs": "^13.2.2"
+	},
+	"dependencies": {
+		"systemjs": "^3.1.6"
 	}
 }

@@ -1,10 +1,13 @@
 import path from 'path';
-import webpackStream from 'webpack-stream';
 import terser from 'gulp-terser';
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 import babel from 'gulp-babel';
 import ts from 'gulp-typescript';
-import merge from 'merge2';
+import watchify from 'watchify';
+import browserify from 'browserify';
+import tsify from 'tsify';
+import buffer from 'vinyl-buffer';
+import source from 'vinyl-source-stream';
 
 export default function(
 	gulp,
@@ -25,35 +28,45 @@ export default function(
 	};
 
 	gulp.task('buildTs', () => {
+		// return (
+		// 	gulp
+		// 		.src(`./${dir.src}${dir.app}${dir.ts}${entries.ts}`)
+		// 		.pipe(
+		// 			plugins.plumber({
+		// 				errorHandler: plugins.notify.onError(
+		// 					'Error: <%= error.message %>'
+		// 				),
+		// 			})
+		// 		)
+		// 		.pipe(ts())
+		// 		.pipe(plugins.if(!isProd, plugins.sourcemaps.init()))
+		// 		// .pipe(plugins.if(isProd, terser()))
+		// 		.pipe(plugins.if(!isProd, plugins.sourcemaps.write()))
+		// 		.pipe(
+		// 			plugins.debug({
+		// 				title: 'Compiles:',
+		// 			})
+		// 		)
+		// 		.pipe(gulp.dest(dest))
+		// );
 		return (
-			gulp
-				.src(`./${dir.src}${dir.app}${dir.ts}${entries.ts}`)
-				.pipe(
-					plugins.plumber({
-						errorHandler: plugins.notify.onError(
-							'Error: <%= error.message %>'
-						),
-					})
-				)
-				.pipe(plugins.if(!isProd, plugins.sourcemaps.init()))
-				// .pipe(
-				// 	babel({
-				// 		presets: ['@babel/env'],
-				// 	})
-				// )
-				.pipe(
-					ts({
-						noImplicitAny: true,
-						outFile: 'app.js',
-					})
-				)
-				// .pipe(plugins.if(isProd, terser()))
-				.pipe(plugins.if(!isProd, plugins.sourcemaps.write()))
-				.pipe(
-					plugins.debug({
-						title: 'Compiles:',
-					})
-				)
+			watchify(
+				browserify({
+					basedir: './',
+					debug: true,
+					entries: ['./src/app/typescript/app.ts'],
+				}).plugin(tsify)
+			)
+				.transform('babelify', {
+					global: true,
+					presets: ['@babel/env'],
+					extensions: ['.js', '.ts'],
+				})
+				.bundle()
+				.pipe(source('app.js'))
+				.pipe(buffer())
+				// .pipe(plugins.if(!isProd, plugins.sourcemaps.init()))
+				// .pipe(plugins.if(!isProd, plugins.sourcemaps.write()))
 				.pipe(gulp.dest(dest))
 		);
 	});

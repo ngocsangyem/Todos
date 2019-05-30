@@ -4,6 +4,6 @@
 		"resource/css/fonts.css"
 	],
 	"scripts": [
-		"bower_components/swiper/dist/js/swiper.min.js"
+		"node_modules/systemjs/dist/system.min.js"
 	]
 }
