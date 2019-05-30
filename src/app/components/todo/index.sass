@@ -79,6 +79,17 @@
 			span
 				display: inline-block
 				margin-left: 1rem
+				position: relative
+				&:before
+					content: ''
+					width: 0
+					height: 1px
+					background-color: #000000
+					transition: width .3s ease-in-out
+					position: absolute
+					top: 50%
+					left: 0
+					transform: translateY(-50%)
 			input
 				-webkit-appearance: none
 				-moz-appearance: none
@@ -89,6 +100,21 @@
 				box-shadow: 0 0 0 1px #ededed
 				cursor: pointer
 				position: relative
+				&:checked
+					box-shadow: 0 0 0 1px lighten($xanh, 20%)
+					&:before
+						content: '\F12C'
+						font-family: 'Material Design Icons'
+						position: absolute
+						top: 50%
+						left: 50%
+						transform: translate(-50%, -50%)
+						font-size: 1rem
+						color: $xanh
+					~ span
+						// text-decoration: line-through
+						&:before
+							width: 100%
 			&--destroy
 				border: none
 				font-size: 1rem
@@ -101,26 +127,24 @@
 				z-index: 2
 				transition: all .3s ease-in-out
 				opacity: 0
-			&--active
-				input
-					box-shadow: 0 0 0 1px lighten($xanh, 20%)
-					&:before
-						content: '\F12C'
-						font-family: 'Material Design Icons'
-						position: absolute
-						top: 50%
-						left: 50%
-						transform: translate(-50%, -50%)
-						font-size: 1rem
-						color: $xanh
-				span
-					text-decoration: line-through
 			&:hover
 				.td__body-task--destroy
 					transform: translateY(-50%)
 					opacity: 1
 	&__footer
 		padding: .5rem 1rem
+		position: relative
+		&:before
+			box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 8px 0 -3px #f6f6f6, 0 9px 1px -3px rgba(0, 0, 0, 0.2), 0 16px 0 -6px #f6f6f6, 0 17px 2px -6px rgba(0, 0, 0, 0.2)
+			position: absolute
+			bottom: 0
+			left: 0
+			height: 60px
+			width: 100%
+			content: ''
+			border-bottom-left-radius: 15px
+			border-bottom-right-radius: 15px
+			pointer-events: none
 		@media (min-width: 450px)
 			display: flex
 			justify-content: space-between
@@ -134,16 +158,13 @@
 			margin: 0 .3rem
 			font-size: .8rem
 			border-radius: 3px
-			&:hover, &--active
+			&--border
+				&:hover
+					box-shadow: 0 0 0 1px #d2d2d2
+			&--active
 				box-shadow: 0 0 0 1px #d2d2d2
 			&:first-child
 				margin-left: 0
 		&-right
 			@media (max-width: 449.98px)
 				margin-top: .7rem
-			&--filter
-				text-decoration: none
-				display: inline-block
-				color: #d2d2d2
-				font-weight: 300
-				font-size: .8rem

@@ -7,6 +7,7 @@ import mqpacker from 'css-mqpacker';
 import objectFitImages from 'postcss-object-fit-images';
 import atImport from 'postcss-import';
 import inlineSVG from 'postcss-inline-svg';
+import cssDeclarationSorter from 'css-declaration-sorter';
 
 export default function(
 	gulp,
@@ -32,6 +33,7 @@ export default function(
 		atImport(),
 		inlineSVG(),
 		objectFitImages(),
+		cssDeclarationSorter({ order: 'smacss' }),
 	];
 	gulp.task('sass', () => {
 		console.log(fileInject);

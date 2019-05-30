@@ -16,14 +16,14 @@ block main
 				//- button#td__header-add.td__header-action
 				//- 	i.mdi.mdi-plus
 			.td__body
-				ul.td__body-tasks
-					li.td__body-task.td__body-task--active
+				ul.td__body-tasks#bodyTasks
+					li.td__body-task(data-id="1")
 						label(for="")
 							input(type="checkbox", name="" class="td__body-task--toggle")
 							span Task 1
 							button.td__body-task--destroy
 								i.mdi.mdi-window-close
-					li.td__body-task
+					li.td__body-task(data-id="2")
 						label(for="")
 							input(type="checkbox", name="" class="td__body-task--toggle")
 							span Task 2
@@ -31,8 +31,8 @@ block main
 								i.mdi.mdi-window-close
 			.td__footer
 				.td__footer-left
-					a.td__footer-filter.td__footer-filter--active(href="#" data-filter="all") All
-					a.td__footer-filter(href="#" data-filter="active") Active
-					a.td__footer-filter(href="#" data-filter="completed") Completed
+					a.td__footer-filter.td__footer-filter--border.td__footer-filter--active(href="#" data-filter="all") All
+					a.td__footer-filter.td__footer-filter--border(href="#" data-filter="active") Active
+					a.td__footer-filter.td__footer-filter--border(href="#" data-filter="completed") Completed
 				.td__footer-right
-					a.td__footer-right--filter(href="") Clear completed
+					a.td__footer-filter.td__footer-filter--clear(href="") Clear completed
