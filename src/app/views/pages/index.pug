@@ -8,16 +8,31 @@ block var
 block main
 	.td
 		h1.td__title Todos
-		.td__header
-			.td__header-input
-				input#todoInput(type="text", name="" placeholder="What needs to be done?")
-			span.td__header-count 7
-			button#td__header-add.td__header-action
-				i.mdi.mdi-plus
-		.td__body
-			ul.td__body-tasks
-				//- li.td__body-task
-				//- 	label(for="")
-				//- 		input(type="checkbox", name="")
-				//- 		span Task 1
-
+		.td__container
+			.td__header
+				.td__header-input
+					input#todoInput(type="text", name="" placeholder="What needs to be done?")
+				span.td__header-count 7
+				//- button#td__header-add.td__header-action
+				//- 	i.mdi.mdi-plus
+			.td__body
+				ul.td__body-tasks
+					li.td__body-task.td__body-task--active
+						label(for="")
+							input(type="checkbox", name="" class="td__body-task--toggle")
+							span Task 1
+							button.td__body-task--destroy
+								i.mdi.mdi-window-close
+					li.td__body-task
+						label(for="")
+							input(type="checkbox", name="" class="td__body-task--toggle")
+							span Task 2
+							button.td__body-task--destroy
+								i.mdi.mdi-window-close
+			.td__footer
+				.td__footer-left
+					a.td__footer-filter.td__footer-filter--active(href="#" data-filter="all") All
+					a.td__footer-filter(href="#" data-filter="active") Active
+					a.td__footer-filter(href="#" data-filter="completed") Completed
+				.td__footer-right
+					a.td__footer-right--filter(href="") Clear completed

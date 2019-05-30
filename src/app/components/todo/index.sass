@@ -4,6 +4,12 @@
 	max-width: 450px
 	margin: 0 auto
 	margin-top: 5rem
+	@media (max-width: 449.98px)
+		max-width: 300px
+	&__container
+		background-color: #ffffff
+		border-radius: 10px
+		box-shadow: 0 7px 18px rgba(0, 0, 0, 0.5)
 	&__title
 		font-size: 4rem
 		font-weight: 300
@@ -15,10 +21,8 @@
 		display: flex
 		align-items: center
 		padding: 1rem
-		background-color: #ffffff
 		position: relative
-		border-top-left-radius: 10px
-		border-top-right-radius: 10px
+		box-shadow: inset 0 -2px 1px rgba(0,0,0,0.1)
 		&-input
 			width: 100%
 			height: 100%
@@ -56,8 +60,90 @@
 			font-size: 1rem
 			border-radius: 50%
 			position: absolute
+			z-index: 2
 			top: 45px
-			right: 35px
+			right: 16px
 			cursor: pointer
-			&:focus
-				// transform: translateY(-5px)
+			transition: transform .3s ease-in-out
+			&:active
+				transform: translateY(-5px)
+	&__body
+		&-task
+			box-shadow: inset 0 -1px 0 0 #e6e6e6
+			label
+				padding: .7rem 1rem
+				cursor: pointer
+				display: flex
+				align-items: center
+				position: relative
+			span
+				display: inline-block
+				margin-left: 1rem
+			input
+				-webkit-appearance: none
+				-moz-appearance: none
+				appearance: none
+				width: 25px
+				height: 25px
+				border-radius: 50%
+				box-shadow: 0 0 0 1px #ededed
+				cursor: pointer
+				position: relative
+			&--destroy
+				border: none
+				font-size: 1rem
+				color: lighten($do, 20%)
+				cursor: pointer
+				position: absolute
+				top: 50%
+				right: 16px
+				transform: translateY(-20%)
+				z-index: 2
+				transition: all .3s ease-in-out
+				opacity: 0
+			&--active
+				input
+					box-shadow: 0 0 0 1px lighten($xanh, 20%)
+					&:before
+						content: '\F12C'
+						font-family: 'Material Design Icons'
+						position: absolute
+						top: 50%
+						left: 50%
+						transform: translate(-50%, -50%)
+						font-size: 1rem
+						color: $xanh
+				span
+					text-decoration: line-through
+			&:hover
+				.td__body-task--destroy
+					transform: translateY(-50%)
+					opacity: 1
+	&__footer
+		padding: .5rem 1rem
+		@media (min-width: 450px)
+			display: flex
+			justify-content: space-between
+		&-filter
+			text-decoration: none
+			display: inline-block
+			color: #d2d2d2
+			font-weight: 300
+			padding: .3rem
+			transition: all .3s ease-in-out
+			margin: 0 .3rem
+			font-size: .8rem
+			border-radius: 3px
+			&:hover, &--active
+				box-shadow: 0 0 0 1px #d2d2d2
+			&:first-child
+				margin-left: 0
+		&-right
+			@media (max-width: 449.98px)
+				margin-top: .7rem
+			&--filter
+				text-decoration: none
+				display: inline-block
+				color: #d2d2d2
+				font-weight: 300
+				font-size: .8rem
