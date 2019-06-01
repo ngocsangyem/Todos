@@ -5,8 +5,8 @@ export interface TodoServiceInterface {
 	addTask(task: Todo): Todo;
 	clearCompleteTask(): void;
 	destroyTask(): void;
-	allTask(): void;
-	activeTask(): TodoState;
-	completeTask(): TodoState;
+	allTask(): Todo[];
+	activeTask(): Todo[];
+	completeTask(): Todo[];
 	countTask(): number;
 }
