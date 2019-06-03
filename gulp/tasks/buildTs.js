@@ -63,22 +63,22 @@ export default function(
 					extensions: ['.js', '.ts'],
 				})
 				.bundle()
-				.pipe(
-					plugins.plumber({
-						errorHandler: plugins.notify.onError(
-							'Error: <%= error.message %>'
-						),
-					})
-				)
+				// .pipe(
+				// 	plugins.plumber({
+				// 		errorHandler: plugins.notify.onError(
+				// 			'Error: <%= error.message %>'
+				// 		),
+				// 	})
+				// )
 				.pipe(source('app.js'))
-				.pipe(buffer())
+				// .pipe(buffer())
 				// .pipe(plugins.if(!isProd, plugins.sourcemaps.init()))
 				// .pipe(plugins.if(!isProd, plugins.sourcemaps.write()))
-				.pipe(
-					plugins.debug({
-						title: 'Compiles:',
-					})
-				)
+				// .pipe(
+				// 	plugins.debug({
+				// 		title: 'Compiles:',
+				// 	})
+				// )
 				.pipe(gulp.dest(dest))
 		);
 	});

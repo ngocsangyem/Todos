@@ -2,12 +2,12 @@ import { Todo } from '../model/todo.model';
 import { TodoState } from './todo.interface';
 
 export interface TodoServiceInterface {
-	addTask(task: Todo): void;
+	render(task: string): void;
 	clearCompleteTask(): void;
 	destroyTask(): void;
 	allTask(): Todo[];
 	activeTask(): Todo[];
 	completeTask(): Todo[];
-	countTask(): number;
-	toggleState(todo, state: boolean): TodoState;
+	countTask(count: HTMLElement): string;
+	toggleState(todos: Todo[]): void;
 }

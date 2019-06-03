@@ -7,44 +7,44 @@ class TodoList {
 	private todoService: TodoService;
 
 	
-	constructor(todos) {
+	constructor(todos: Todo[]) {
 		this.todoService = new TodoService(todos);
-		// this.todoInit()
-	}
-	
-	todoAddTask(task){
-		this.todoService.addTask(task);
-		this.renderTodos();
 	}
 
-	todoToggleState(todo,state: boolean){
-		this.todoService.toggleState(todo,state);
+	todoToggleState(){
+		this.todoService.toggleState();
+		// this.renderTodos();
 	}
 
+	todoCountTask(count: HTMLElement): string{
+		return this.todoService.countTask(count);
+	}
 
-	renderTodos(){
-		let container = <HTMLElement>document.getElementById('bodyTasks');
-		let todos = this.todoService.allTask();
-		this.todoService.render(todos,container);
+	todoAddTask(input: string){
+		this.todoService.render(input);
 	}
 
 	todoInit(){
 		let todoInput = <HTMLInputElement>document.getElementById('todoInput');
 		let todoFooter = <HTMLElement>document.querySelector('.td__footer');
-		let todoToggle = <HTMLInputElement>document.querySelector('.td__body-task--toggle');
+		let todoCount = <HTMLElement>document.querySelector('.td__header-count');
+		let todoToggle = document.getElementsByClassName('td__body-task');
 
 		todoInput.addEventListener('keypress', (event) => {
 			if (event.key === 'Enter') {
 				this.todoAddTask(todoInput.value);
 				todoInput.value = ''
 				todoFooter.style.display = 'flex';
+				todoCount.innerHTML = this.todoCountTask(todoCount);
 			}
 		});
 
-		
-
-		
-		
+		document.addEventListener('click', event => {
+			if ((<HTMLElement>event.target).classList.contains('td__body-task')) {
+				console.log(123);
+				this.todoToggleState();
+			}
+		}, false)
 	}
 }
 

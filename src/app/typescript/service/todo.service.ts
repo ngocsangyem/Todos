@@ -2,20 +2,22 @@ import { Todo } from '../model/todo.model';
 import { TodoState } from '../interface/todo.interface';
 import { TodoServiceInterface } from '../interface/todoservice.interface';
 
-let id = 0;
 
-function generateId(): number {
-	return (id += 1);
-}
-
+let state = false;
 export class TodoService implements TodoServiceInterface {
+	// state: boolean = false;
+	private id: number = 0;
 	private todos: Todo[] = [];
 
-	constructor(todos: string[]) {}
+	constructor(todos: Todo[]) {
+	}
 
-	addTask(task): Todo {
+	private generateId(): number {
+		return (this.id += 1);
+	}
+	private addTask(task: string): Todo {
 		let todo: Todo = {
-			id: generateId(),
+			id: this.generateId(),
 			name: task,
 			state: TodoState.Active,
 		};
@@ -24,14 +26,30 @@ export class TodoService implements TodoServiceInterface {
 		return todo;
 	}
 
-	clearCompleteTask() {
-		this.todos = this.todos.filter(todo => todo.state === TodoState.Active);
+	private renderTodo(todoItem: {id: number, name: string, state: TodoState}, container:  HTMLElement): void{
+		let html, newHtml;
+		html =  `<li class="td__body-task${todoItem.state === 1 ? ' td__body-task--complete' : '' }" data-id="${todoItem.id}" data-state="${todoItem.state === 1 ? 'complete' : 'active'}">
+					<input class="td__body-task--toggle" type="checkbox">
+					<span>${todoItem.name}</span>
+					<button class="td__body-task--destroy"><i class="mdi mdi-window-close"></i></button>
+				</li>`
+		container.insertAdjacentHTML("beforeend", html)
 	}
 
-	destroyTask() {}
+	clearCompleteTask() {
+		this.todos = this.todos.filter(todo => todo.state === TodoState.Complete);
+	}
+
+	render(input: string): void{
+		let newItem;
+		let container = <HTMLElement>document.getElementById('bodyTasks');
+		newItem = this.addTask(input);
+
+		this.renderTodo(newItem, container);
+	}
 
 	allTask() {
-		return this.todos;
+		return this.todos.slice();
 	}
 
 	activeTask() {
@@ -46,32 +64,18 @@ export class TodoService implements TodoServiceInterface {
 		));
 	}
 
-	countTask() {
-		return this.todos.length;
+	countTask(count: HTMLElement): string {
+		if (this.todos.length > 0) {
+			count.style.display = 'block'
+		} else {
+			count.style.display = 'none'
+		}
+		return String(this.todos.length);
 	}
 
-	toggleState(todo, state: boolean): TodoState{
-		if (!state) {
-			return todo.state = TodoState.Active;
-		}
-		return todo.state = TodoState.Complete;
-	}
-	private renderTodo(todoItem: {id: number, name: string, state: TodoState}){
-		// console.log(todoItem);
-		return `<li class="td__body-task" data-id="${todoItem.id}" data-state="${this.toggleState(todoItem, false)}">
-					<label for="">
-						<input class="td__body-task--toggle" type="checkbox" ${this.toggleState}><span>${todoItem.name}</span>
-						<button class="td__body-task--destroy"><i class="mdi mdi-window-close"></i></button>
-					</label>
-				</li>`
+	toggleState(){
+		
 	}
 
-	render(todos: Todo[], container: HTMLElement){
-		for (let todo in todos) {
-			let element = todos[todo];
-			if (element.id === id) {
-				container.insertAdjacentHTML("beforeend", this.renderTodo(element))
-			}
-		}
-	}
+	destroyTask() {}
 }

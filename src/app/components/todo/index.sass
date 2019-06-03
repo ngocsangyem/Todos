@@ -47,6 +47,7 @@
 			font-size: .8rem
 			background-color: #FF5F6D
 			color: #ffffff
+			display: none
 		&-action
 			height: 40px
 			width: 40px
@@ -67,16 +68,15 @@
 	&__body
 		&-task
 			box-shadow: inset 0 -1px 0 0 #e6e6e6
-			label
-				padding: .7rem 1rem
-				cursor: pointer
-				display: flex
-				align-items: center
-				position: relative
+			padding: .7rem 1rem
+			cursor: pointer
+			display: flex
+			align-items: center
+			position: relative
 			span
 				display: inline-block
 				position: relative
-				margin-left: 3rem
+				margin-left: 1rem
 				&:before
 					content: ''
 					width: 0
@@ -88,43 +88,16 @@
 					left: 0
 					transform: translateY(-50%)
 			input
-				z-index: 2
-				position: absolute
-				width: 100%
-				height: 100%
-				top: 0
-				left: 0
+				width: 25px
+				height: 25px
+				border-radius: 50%
+				box-shadow: 0 0 0 1px #ededed
 				-webkit-appearance: none
 				-moz-appearance: none
 				appearance: none
 				cursor: pointer
-				// position: relative
+				position: relative
 				border: none
-				&:after
-					content: ''
-					width: 25px
-					height: 25px
-					border-radius: 50%
-					box-shadow: 0 0 0 1px #ededed
-					position: absolute
-					top: 7px
-					left: 16px
-				&:checked
-					background-color: transparent
-					&:after
-						box-shadow: 0 0 0 1px lighten($xanh, 20%)
-					&:before
-						content: '\F12C'
-						font-family: 'Material Design Icons'
-						position: absolute
-						top: 12px
-						left: 21px
-						font-size: 1rem
-						color: $xanh
-					~ span
-						// text-decoration: line-through
-						&:before
-							width: 100%
 			&--destroy
 				border: none
 				font-size: 1rem
@@ -141,6 +114,22 @@
 				.td__body-task--destroy
 					transform: translateY(-50%)
 					opacity: 1
+			&--complete
+				input
+					background-color: transparent
+					box-shadow: 0 0 0 1px lighten($xanh, 20%)
+					&:before
+						content: '\F12C'
+						font-family: 'Material Design Icons'
+						position: absolute
+						top: 50%
+						left: 50%
+						transform: translate(-50%, -50%)
+						font-size: 1rem
+						color: $xanh
+				span
+					&:before
+						width: 100%
 	&__footer
 		padding: .5rem 1rem
 		position: relative
