@@ -4,7 +4,7 @@ import { TodoState } from './todo.interface';
 export interface TodoServiceInterface {
 	render(task: string): void;
 	clearCompleteTask(): void;
-	destroyTask(): void;
+	deleteTask(index: string): Todo[];
 	allTask(): Todo[];
 	activeTask(): Todo[];
 	completeTask(): Todo[];

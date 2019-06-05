@@ -32,13 +32,14 @@ export class TodoService implements TodoServiceInterface {
 		return todo;
 	}
 
+	
 	private renderTodo(task: {id: string, name: string, state: boolean}): void{
 		let container = <HTMLElement>document.getElementById('bodyTasks');
 		let html: string, newHtml: string, htmlDom;
-		html =  `<li class="td__body-task${task.state === true ? ' td__body-task--complete' : '' }" data-id="${task.id}" data-state="${task.state === true ? 'complete' : 'active'}">
+		html =  `<li class="td__body-task${task.state === true ? ' td__body-task--complete' : '' }" id="${task.id}" data-id="${task.id}">
 					<input class="td__body-task--toggle" type="checkbox">
 					<span>${task.name}</span>
-					<button class="td__body-task--destroy" data-id="${task.id}"><i class="mdi mdi-window-close"></i></button>
+					<button class="td__body-task--destroy" data-button-id="${task.id}"><i class="mdi mdi-window-close"></i></button>
 				</li>`
 		
 		container.insertAdjacentHTML("beforeend", html);
@@ -48,13 +49,28 @@ export class TodoService implements TodoServiceInterface {
 		if (findId) {
 			findId.addEventListener('click', event => {
 				this.toggleState(task);
-				findId.remove()
-				this.renderTodo(task)
+				findId.classList.toggle('td__body-task--complete');
 			})
 		}
-		
 	}
 	
+	private findId() {
+		return this.todos.map(todo => todo.id);
+	}
+
+	deleteTask (index: string): Todo[]{
+		let item, ids;
+
+		ids = this.findId();
+		item = ids.indexOf(index)
+
+		if (item !== -1) {
+			this.todos.splice(item, 1);
+		}
+
+		return this.todos;
+	}
+
 	render(input: string): void{
 		let newItem;
 		newItem = this.addTask(input);
@@ -91,20 +107,8 @@ export class TodoService implements TodoServiceInterface {
 		return String(this.todos.length);
 	}
 
-	renderAfterClick (todo, container){
-		for (todo in this.todos) {
-			if (this.todos.hasOwnProperty(todo)) {
-				let element = this.todos[todo];
-				if (element.id) {
-					container.insertAdjacentHTML('beforeend', this.renderTodo(element))
-				}
-			}
-		}
-	}
 	toggleState(todo: Todo): boolean{
 		todo.state = !todo.state
 		return todo.state;
 	}
-
-	destroyTask() {}
 }
