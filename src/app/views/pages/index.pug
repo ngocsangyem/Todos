@@ -11,23 +11,21 @@ block main
 		.td__container
 			.td__header
 				input.td__header-input#todoInput(type="text", name="" placeholder="What needs to be done?")
-				span.td__header-count 
+				span.td__header-count 7
 				//- button#td__header-add.td__header-action
 				//- 	i.mdi.mdi-plus
 			.td__body
 				ul.td__body-tasks#bodyTasks
-					//- li.td__body-task(data-id="1" data-state="")
-					//- 	label(for="")
-					//- 		input(type="checkbox", name="" class="td__body-task--toggle")
-					//- 		span Task 1
-					//- 		button.td__body-task--destroy
-					//- 			i.mdi.mdi-window-close
-					//- li.td__body-task(data-id="2" data-state="")
-					//- 	label(for="")
-					//- 		input(type="checkbox", name="" class="td__body-task--toggle")
-					//- 		span Task 2
-					//- 		button.td__body-task--destroy
-					//- 			i.mdi.mdi-window-close
+					li.td__body-task(data-id="1" data-state="active")
+						input(type="checkbox", name="" class="td__body-task--toggle")
+						span Task 1
+						button.td__body-task--destroy
+							i.mdi.mdi-window-close
+					li.td__body-task(data-id="2" data-state="active")
+						input(type="checkbox", name="" class="td__body-task--toggle")
+						span Task 2
+						button.td__body-task--destroy
+							i.mdi.mdi-window-close
 			.td__footer
 				.td__footer-left
 					a.td__footer-filter.td__footer-filter--border.td__footer-filter--active(href="#" data-filter="all") All

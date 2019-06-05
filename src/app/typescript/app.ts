@@ -3,51 +3,33 @@ import { TodoState } from './interface/todo.interface';
 import { TodoService } from './service/todo.service';
 
 class TodoList {
-	
+
 	private todoService: TodoService;
 
-	
 	constructor(todos: Todo[]) {
 		this.todoService = new TodoService(todos);
 	}
 
-	// todoToggleState(todo: Todo){
-	// 	this.todoService.toggleState(todo);
-	// }
-
-	todoCountTask(countElement: HTMLElement): string{
-		return this.todoService.countTask(countElement);
-	}
-
 	todoAddTask(input: string){
-		this.todoService.render(input);
+		this.todoService.addTask(input);
+		this.todoRenderTask();
 	}
 
-	todoInit(){
+	todoRenderTask(){
+		let todos = this.todoService.getAllTask();
+		return this.todoService.render(todos);
+	}
+	todoInit () {
 		let todoInput = <HTMLInputElement>document.getElementById('todoInput');
-		let todoFooter = <HTMLElement>document.querySelector('.td__footer');
-		let todoCount = <HTMLElement>document.querySelector('.td__header-count');
-		let todoToggle = document.getElementsByClassName('td__body-task');
 
-		todoInput.addEventListener('keypress', (event) => {
-			if (event.key === 'Enter') {
-				this.todoAddTask(todoInput.value);
-				todoInput.value = ''
-				todoFooter.style.display = 'flex';
-				todoCount.innerHTML = this.todoCountTask(todoCount);
+		todoInput.addEventListener('keypress', e => {
+			if (e.key === 'Enter') {
+				this.todoAddTask(todoInput.value)
 			}
 		});
-
-		// document.addEventListener('click', event => {
-		// 	if ((<HTMLElement>event.target).classList.contains('td__body-task')) {
-		// 		console.log(123);
-		// 		this.todoToggleState();
-		// 	}
-		// }, false)
 	}
 }
 
-let todoApp = new TodoList([])
+let initApp = new TodoList([]);
 
-todoApp.todoInit();
-
+initApp.todoInit();

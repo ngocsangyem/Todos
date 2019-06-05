@@ -2,7 +2,7 @@ import { Todo } from '../model/todo.model';
 import { TodoState } from './todo.interface';
 
 export interface TodoServiceInterface {
-	render(task: string): void;
+	addTask(task: Todo): Todo;
 	clearCompleteTask(): void;
 	destroyTask(): void;
 	allTask(): Todo[];
