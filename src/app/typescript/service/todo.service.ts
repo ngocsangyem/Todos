@@ -98,7 +98,6 @@ export class TodoService implements TodoServiceInterface {
 				if (element.id) {
 					container.insertAdjacentHTML('beforeend', this.renderTodo(element))
 				}
-				
 			}
 		}
 	}
