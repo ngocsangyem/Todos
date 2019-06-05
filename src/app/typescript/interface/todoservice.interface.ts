@@ -9,5 +9,5 @@ export interface TodoServiceInterface {
 	activeTask(): Todo[];
 	completeTask(): Todo[];
 	countTask(count: HTMLElement): string;
-	toggleState(todos: Todo[]): void;
+	toggleState(todo: Todo): boolean;
 }

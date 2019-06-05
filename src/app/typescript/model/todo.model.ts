@@ -1,11 +1,11 @@
 import { TodoState } from '../interface/todo.interface';
 
 export class Todo {
-	id: number;
+	id: string;
 	name: string;
-	state: TodoState;
+	state: boolean;
 
-	constructor(id: number, name: string, state: TodoState) {
+	constructor(id: string, name: string, state: boolean) {
 		this.id = id;
 		this.name = name;
 		this.state = state;

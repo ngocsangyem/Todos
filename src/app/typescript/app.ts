@@ -11,13 +11,12 @@ class TodoList {
 		this.todoService = new TodoService(todos);
 	}
 
-	todoToggleState(){
-		this.todoService.toggleState();
-		// this.renderTodos();
-	}
+	// todoToggleState(todo: Todo){
+	// 	this.todoService.toggleState(todo);
+	// }
 
-	todoCountTask(count: HTMLElement): string{
-		return this.todoService.countTask(count);
+	todoCountTask(countElement: HTMLElement): string{
+		return this.todoService.countTask(countElement);
 	}
 
 	todoAddTask(input: string){
@@ -39,12 +38,12 @@ class TodoList {
 			}
 		});
 
-		document.addEventListener('click', event => {
-			if ((<HTMLElement>event.target).classList.contains('td__body-task')) {
-				console.log(123);
-				this.todoToggleState();
-			}
-		}, false)
+		// document.addEventListener('click', event => {
+		// 	if ((<HTMLElement>event.target).classList.contains('td__body-task')) {
+		// 		console.log(123);
+		// 		this.todoToggleState();
+		// 	}
+		// }, false)
 	}
 }
 
