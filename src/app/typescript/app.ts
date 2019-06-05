@@ -25,10 +25,16 @@ class TodoList {
 		return this.todoService.deleteTask(index);
 	}
 
+	todoActiveTask (){
+		let todosActiveTask = this.todoService.activeTask()
+		return this.todoService.renderFilter(todosActiveTask);
+	}
+
 	todoInit(){
 		let todoInput = <HTMLInputElement>document.getElementById('todoInput');
 		let todoFooter = <HTMLElement>document.querySelector('.td__footer');
 		let todoTaskWrapper = <HTMLElement>document.getElementById('bodyTasks');
+		let todoBtnActive = <HTMLElement>document.querySelector('.td__footer-filter--active');
 
 		todoInput.addEventListener('keypress', (event) => {
 			if (event.key === 'Enter') {
@@ -43,9 +49,16 @@ class TodoList {
 			let parentId = (<HTMLElement>event.target).parentNode.parentNode.id;
 			let parentTask = (<HTMLElement>event.target).parentNode.parentNode;
 			this.todoDeleteTask(parentId);
-			todoTaskWrapper.removeChild(parentTask);
+			if (parentTask) {
+				todoTaskWrapper.removeChild(parentTask);
+			}
 			this.todoCountTask();
+		})
 
+		todoBtnActive.addEventListener('click', () => {
+			console.log(todoTaskWrapper.firstChild);
+			
+			this.todoActiveTask();
 		})
 	}
 }

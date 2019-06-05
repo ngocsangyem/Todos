@@ -32,8 +32,19 @@ export class TodoService implements TodoServiceInterface {
 		return todo;
 	}
 
-	
-	private renderTodo(task: {id: string, name: string, state: boolean}): void{
+	private renderTaskFilter (task: Todo) {
+		let html, container;
+		container = <HTMLElement>document.getElementById('bodyTasks');
+
+		html =  `<li class="td__body-task${task.state === true ? ' td__body-task--complete' : '' }" id="${task.id}" data-id="${task.id}">
+			<input class="td__body-task--toggle" type="checkbox">
+			<span>${task.name}</span>
+			<button class="td__body-task--destroy" data-button-id="${task.id}"><i class="mdi mdi-window-close"></i></button>
+		</li>`
+
+		container.insertAdjacentHTML("beforeend", html);
+	}
+	private renderTask(task: Todo): void{
 		let container = <HTMLElement>document.getElementById('bodyTasks');
 		let html: string, newHtml: string, htmlDom;
 		html =  `<li class="td__body-task${task.state === true ? ' td__body-task--complete' : '' }" id="${task.id}" data-id="${task.id}">
@@ -58,6 +69,21 @@ export class TodoService implements TodoServiceInterface {
 		return this.todos.map(todo => todo.id);
 	}
 
+	render(input: string): void{
+		let newItem;
+		newItem = this.addTask(input);
+		console.log(newItem);
+
+		this.renderTask(newItem);
+	}
+
+	renderFilter (tasks: Todo[]): void {
+		for (let index = 0; index < tasks.length; index++) {
+			let element = tasks[index];
+			this.renderTaskFilter(element);
+		}
+	}
+
 	deleteTask (index: string): Todo[]{
 		let item, ids;
 
@@ -71,13 +97,6 @@ export class TodoService implements TodoServiceInterface {
 		return this.todos;
 	}
 
-	render(input: string): void{
-		let newItem;
-		newItem = this.addTask(input);
-		console.log(newItem);
-
-		this.renderTodo(newItem);
-	}
 	clearCompleteTask() {
 		this.todos = this.todos.filter(todo => todo.state === true);
 	}
@@ -87,7 +106,7 @@ export class TodoService implements TodoServiceInterface {
 	}
 
 	activeTask() {
-		return (this.todos = this.todos.filter(
+		return (this.todos = this.todos.slice().filter(
 			todo => todo.state === false
 		));
 	}
