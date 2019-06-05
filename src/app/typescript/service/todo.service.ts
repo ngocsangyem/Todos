@@ -69,6 +69,12 @@ export class TodoService implements TodoServiceInterface {
 		return this.todos.map(todo => todo.id);
 	}
 
+	private filterTaskType(type: boolean): Todo[] {
+		return (this.todos = this.todos.slice().filter(
+			todo => todo.state === type
+		));
+	}
+
 	render(input: string): void{
 		let newItem;
 		newItem = this.addTask(input);
@@ -106,15 +112,11 @@ export class TodoService implements TodoServiceInterface {
 	}
 
 	activeTask() {
-		return (this.todos = this.todos.slice().filter(
-			todo => todo.state === false
-		));
+		return this.filterTaskType(false);
 	}
 
 	completeTask() {
-		return (this.todos = this.todos.filter(
-			todo => todo.state === true
-		));
+		return this.filterTaskType(true);
 	}
 
 	countTask(countElement: HTMLElement): string {

@@ -29,12 +29,18 @@ class TodoList {
 		let todosActiveTask = this.todoService.activeTask()
 		return this.todoService.renderFilter(todosActiveTask);
 	}
+	
+	todoCompleteTask (){
+		let todosCompleteTask = this.todoService.completeTask()
+		return this.todoService.renderFilter(todosCompleteTask);
+	}
 
 	todoInit(){
 		let todoInput = <HTMLInputElement>document.getElementById('todoInput');
 		let todoFooter = <HTMLElement>document.querySelector('.td__footer');
 		let todoTaskWrapper = <HTMLElement>document.getElementById('bodyTasks');
 		let todoBtnActive = <HTMLElement>document.querySelector('.td__footer-filter--active');
+		let todoBtnComplete = <HTMLElement>document.querySelector('.td__footer-filter--complete');
 
 		todoInput.addEventListener('keypress', (event) => {
 			if (event.key === 'Enter') {
@@ -49,16 +55,24 @@ class TodoList {
 			let parentId = (<HTMLElement>event.target).parentNode.parentNode.id;
 			let parentTask = (<HTMLElement>event.target).parentNode.parentNode;
 			this.todoDeleteTask(parentId);
-			if (parentTask) {
+			if ((<HTMLElement>event.target).matches('.td__body-task--destroy')) {
 				todoTaskWrapper.removeChild(parentTask);
 			}
 			this.todoCountTask();
 		})
 
 		todoBtnActive.addEventListener('click', () => {
-			console.log(todoTaskWrapper.firstChild);
-			
+			while (todoTaskWrapper.firstChild) {
+				todoTaskWrapper.removeChild(todoTaskWrapper.firstChild);
+			}
 			this.todoActiveTask();
+		})
+
+		todoBtnComplete.addEventListener('click', () => {
+			while (todoTaskWrapper.firstChild) {
+				todoTaskWrapper.removeChild(todoTaskWrapper.firstChild);
+			}
+			this.todoCompleteTask();
 		})
 	}
 }
