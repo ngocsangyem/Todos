@@ -4,7 +4,7 @@ import { TodoServiceInterface } from '../interface/todoservice.interface';
 
 
 let state = false;
-export class TodoService implements TodoServiceInterface {
+export class TodoService {
 	// state: boolean = false;
 	private id: number = 0;
 	private todos: Todo[] = [];
@@ -27,23 +27,11 @@ export class TodoService implements TodoServiceInterface {
 			state: false,
 		};
 		this.todos.push(todo);
-		console.log(this.todos);
+		// console.log(this.todos);
 		
 		return todo;
 	}
 
-	private renderTaskFilter (task: Todo) {
-		let html, container;
-		container = <HTMLElement>document.getElementById('bodyTasks');
-
-		html =  `<li class="td__body-task${task.state === true ? ' td__body-task--complete' : '' }" id="${task.id}" data-id="${task.id}">
-			<input class="td__body-task--toggle" type="checkbox">
-			<span>${task.name}</span>
-			<button class="td__body-task--destroy" data-button-id="${task.id}"><i class="mdi mdi-window-close"></i></button>
-		</li>`
-
-		container.insertAdjacentHTML("beforeend", html);
-	}
 	private renderTask(task: Todo): void{
 		let container = <HTMLElement>document.getElementById('bodyTasks');
 		let html: string, newHtml: string, htmlDom;
@@ -55,12 +43,12 @@ export class TodoService implements TodoServiceInterface {
 		
 		container.insertAdjacentHTML("beforeend", html);
 
-		let findId = <HTMLElement>document.querySelector(`[data-id="${task.id}"]`)
+		let taskID = <HTMLElement>document.querySelector(`[data-id="${task.id}"]`)
 
-		if (findId) {
-			findId.addEventListener('click', event => {
+		if (taskID) {
+			taskID.addEventListener('click', event => {
 				this.toggleState(task);
-				findId.classList.toggle('td__body-task--complete');
+				taskID.classList.toggle('td__body-task--complete');
 			})
 		}
 	}
@@ -70,7 +58,7 @@ export class TodoService implements TodoServiceInterface {
 	}
 
 	private filterTaskType(type: boolean): Todo[] {
-		return (this.todos = this.todos.slice().filter(
+		return (this.todos.slice().filter(
 			todo => todo.state === type
 		));
 	}
@@ -78,7 +66,6 @@ export class TodoService implements TodoServiceInterface {
 	render(input: string): void{
 		let newItem;
 		newItem = this.addTask(input);
-		console.log(newItem);
 
 		this.renderTask(newItem);
 	}
@@ -86,7 +73,7 @@ export class TodoService implements TodoServiceInterface {
 	renderFilter (tasks: Todo[]): void {
 		for (let index = 0; index < tasks.length; index++) {
 			let element = tasks[index];
-			this.renderTaskFilter(element);
+			this.renderTask(element);
 		}
 	}
 
@@ -103,8 +90,13 @@ export class TodoService implements TodoServiceInterface {
 		return this.todos;
 	}
 
-	clearCompleteTask() {
-		this.todos = this.todos.filter(todo => todo.state === true);
+	clearCompleteTask(): Todo[] {
+		for(let index = this.todos.length - 1; index >= 0; index--) {
+			if(this.todos[index].state === true) {
+				this.todos.splice(index, 1);
+			}
+		}
+		return this.todos;
 	}
 
 	allTask() {

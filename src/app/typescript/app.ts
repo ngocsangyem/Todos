@@ -11,6 +11,11 @@ class TodoList {
 		this.todoService = new TodoService(todos);
 	}
 
+	private clearElement (element: HTMLElement) {
+		while (element.firstChild) {
+			element.removeChild(element.firstChild);
+		}
+	}
 
 	todoCountTask(): string{
 		let todoCount = <HTMLElement>document.querySelector('.td__header-count');
@@ -27,12 +32,27 @@ class TodoList {
 
 	todoActiveTask (){
 		let todosActiveTask = this.todoService.activeTask()
+		console.log(todosActiveTask);
+		
 		return this.todoService.renderFilter(todosActiveTask);
 	}
 	
 	todoCompleteTask (){
 		let todosCompleteTask = this.todoService.completeTask()
+		console.log(todosCompleteTask);
+		
 		return this.todoService.renderFilter(todosCompleteTask);
+	}
+
+	todoAllTask () {
+		let tasks = this.todoService.allTask();
+
+		return this.todoService.renderFilter(tasks);
+	}
+
+	todoClearCompleteTask() {
+		let todos = this.todoService.clearCompleteTask();
+		return this.todoService.renderFilter(todos);
 	}
 
 	todoInit(){
@@ -41,6 +61,8 @@ class TodoList {
 		let todoTaskWrapper = <HTMLElement>document.getElementById('bodyTasks');
 		let todoBtnActive = <HTMLElement>document.querySelector('.td__footer-filter--active');
 		let todoBtnComplete = <HTMLElement>document.querySelector('.td__footer-filter--complete');
+		let todoBtnAll = <HTMLElement>document.querySelector('.td__footer-filter--all');
+		let todoBtnClear = <HTMLElement>document.querySelector('.td__footer-filter--clear');
 
 		todoInput.addEventListener('keypress', (event) => {
 			if (event.key === 'Enter') {
@@ -55,24 +77,31 @@ class TodoList {
 			let parentId = (<HTMLElement>event.target).parentNode.parentNode.id;
 			let parentTask = (<HTMLElement>event.target).parentNode.parentNode;
 			this.todoDeleteTask(parentId);
-			if ((<HTMLElement>event.target).matches('.td__body-task--destroy')) {
+			if ((<HTMLElement>event.target).matches('.td__body-task--destroy *')) {
 				todoTaskWrapper.removeChild(parentTask);
 			}
 			this.todoCountTask();
-		})
+		});
 
 		todoBtnActive.addEventListener('click', () => {
-			while (todoTaskWrapper.firstChild) {
-				todoTaskWrapper.removeChild(todoTaskWrapper.firstChild);
-			}
+			this.clearElement(todoTaskWrapper);
 			this.todoActiveTask();
-		})
+		});
 
 		todoBtnComplete.addEventListener('click', () => {
-			while (todoTaskWrapper.firstChild) {
-				todoTaskWrapper.removeChild(todoTaskWrapper.firstChild);
-			}
+			this.clearElement(todoTaskWrapper);
 			this.todoCompleteTask();
+		});
+
+		todoBtnAll.addEventListener('click', () => {
+			this.clearElement(todoTaskWrapper);
+			this.todoAllTask();
+		});
+
+		todoBtnClear.addEventListener('click', () => {
+			this.clearElement(todoTaskWrapper);
+			this.todoClearCompleteTask();
+			this.todoCountTask();
 		})
 	}
 }
